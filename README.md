@@ -646,7 +646,8 @@ This doesn't mean you have to be an expert. You can take one step forward on the
 
 ---
 
-## Resources
+<!-- .slide: data-background="https://cdn.pixabay.com/photo/2020/10/09/20/09/library-5641389_960_720.jpg" data-background-video-loop="loop" data-background-video-muted -->
+# Resources
 
 * [reveal-md for slides](https://github.com/webpro/reveal-md)
 * [Animations](https://flixel.com/cinemagraphs/fresh/)
