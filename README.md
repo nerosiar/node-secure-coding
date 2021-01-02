@@ -1,11 +1,10 @@
+
 #### To view this as a slide deck:
 
 `npm install -g reveal-md`
 
-## `npm start`
+`npm start`
 
-Preview Presentation :
-link here
 
 ---
 
@@ -18,8 +17,8 @@ link here
 <img style="display:inline;border:none;height:100px;width:auto;" src="https://raygun.com/blog/wp-content/uploads/2016/05/nodejs-logo.png">
 <img style="display:inline;border:none;height:100px;width:auto;" src="https://i.cloudup.com/zfY6lL7eFa-3000x3000.png">
 
-#### nerosiar
 
+#### nersoair
 #### erais.nader@gmail.com
 
 ---
@@ -30,9 +29,9 @@ link here
 
 ## Agenda
 
-- whoami
-- Why security?
-- Security with Node.JS/Express
+* whoami
+* Why security?
+* Security with Node.JS/Express
 
 ---
 
@@ -40,13 +39,13 @@ link here
 
 # `whoami`
 
----
+----
 
 <!-- .slide: data-background="https://images.pexels.com/photos/4709285/pexels-photo-4709285.jpeg?cs=srgb&dl=pexels-cottonbro-4709285.jpg&fm=jpg"  -->
 
 <div style="background: rgba(0, 0, 0, 0.4);border-radius: 50px">
-  <h1>Nerosiar</h1>
-  <h3>Cybersecurity Specialist , Jr. Full Stack Developer</h3>
+  <h1>Nader RAIS</h1>
+  <h3>Cybersecurity specialist, Jr. Full Stack Developer</h3>
 </div>
 
 ---
@@ -55,37 +54,34 @@ link here
 
 # Why security?
 
----
+----
 
-# Show of hands:
-
+# Show  of hands:
 ## Who here develops web applications?
 
----
+----
 
-# Show of hands:
-
+# Show  of hands:
 ## Who here is a security engineer?
 
----
+----
 
 ### If you are a web developer you probably don't think of yourself as a security engineer.
 
-> "Our clients don't pay us for security; they want it pretty, they want it feature-complete, and most importantly they want it done yesterday."
+>"Our clients don't pay us for security; they want it pretty, they want it feature-complete, and most importantly they want it done yesterday."
 
 [A Gentle Introduction to Application Security](https://paragonie.com/blog/2015/08/gentle-introduction-application-security)
 
----
+----
 
 # Fact:
-
 ### The second your code is deployed in production, your code is the front line of defense for that entire system and quite possibly the entire network.
 
----
+----
 
 ### Logically, that means the software you produce must be made reasonably secure.
 
----
+----
 
 ## Application Security is Every Developer's Responsibility
 
@@ -99,9 +95,9 @@ Anything you develop with security in mind will still move the needle in your or
 
 <div style="background: rgba(0, 0, 0, 0.5);padding: 20px;">
 
-### The topics discussed in this talk are heavily influenced by the
+<h3>
 
-[Web Application Security Testing Cheat Sheet](https://www.owasp.org/index.php/Web_Application_Security_Testing_Cheat_Sheet) maintained by [OWASP - Open Web Application Security Project](https://www.owasp.org/index.php/Main_Page) and the [Node.js Security Checklist](https://blog.risingstack.com/node-js-security-checklist/) by RisingStack.
+The topics discussed in this talk are heavily influenced by the [Web Application Security Testing Cheat Sheet](https://www.owasp.org/index.php/Web_Application_Security_Testing_Cheat_Sheet) maintained by [OWASP - Open Web Application Security Project](https://www.owasp.org/index.php/Main_Page) and the [Node.js Security Checklist](https://blog.risingstack.com/node-js-security-checklist/) by RisingStack.</h3>
 
 </div>
 
@@ -128,7 +124,7 @@ Anything you develop with security in mind will still move the needle in your or
 
 ## Mitigate common attacks by setting security related headers
 
----
+----
 
 ## Headers
 
@@ -136,7 +132,7 @@ Setting headers from the server is easy and often doesn't require any code chang
 
 [OWASP Secure Headers Project](https://www.owasp.org/index.php/OWASP_Secure_Headers_Project#tab=Headers)
 
----
+----
 
 ## Helmet
 
@@ -155,7 +151,7 @@ Helmet is a collection of 10 smaller middleware functions that set HTTP headers:
 - [noSniff](https://github.com/helmetjs/dont-sniff-mimetype) to keep clients from sniffing the MIME type
 - [xssFilter](https://github.com/helmetjs/x-xss-protection) adds some small XSS protections
 
----
+----
 
 ## Helmet Usage
 
@@ -164,8 +160,8 @@ npm install -S helmet
 ```
 
 ```js
-const express = require("express");
-const helmet = require("helmet");
+const express = require('express');  
+const helmet = require('helmet');
 
 const app = express();
 
@@ -180,7 +176,7 @@ Running `app.use(helmet())` will include 7 of the 10, leaving out `contentSecuri
 
 ## Protect against brute force authentication attacks
 
----
+----
 
 ## Brute Force
 
@@ -190,13 +186,13 @@ In cryptography, a brute-force attack consists of an attacker trying many passwo
 
 https://github.com/vanhauser-thc/thc-hydra
 
----
+----
 
 ## Rate Limiting
 
 Limiting the number of requests a user can make can protect your application from brute force attacks.
 
----
+----
 
 ## [express-bouncer](https://github.com/dkrutsko/express-bouncer)
 
@@ -204,38 +200,34 @@ A simple and standalone middleware for express routes which attempts to mitigate
 
 ```js
 // Creates a new instance of our bouncer (args optional)
-var bouncer = require("express-bouncer")(500, 900000);
+var bouncer = require ("express-bouncer")(500, 900000);
 
 // Add white-listed addresses (optional)
-bouncer.whitelist.push("127.0.0.1");
+bouncer.whitelist.push ("127.0.0.1");
 
 // In case we want to supply our own error (optional)
 bouncer.blocked = function (req, res, next, remaining) {
-  res.send(
-    429,
-    "Too many requests have been made, " +
-      "please wait " +
-      remaining / 1000 +
-      " seconds"
-  );
+    res.send (429, "Too many requests have been made, " +
+        "please wait " + remaining / 1000 + " seconds");
 };
 
 // Route we wish to protect with bouncer middleware
-app.post("/login", bouncer.block, function (req, res) {
-  if (LoginFailed) {
-    // Login failed
-  } else {
-    bouncer.reset(req);
-    // Login succeeded
-  }
+app.post ("/login", bouncer.block, function (req, res) {
+    if (LoginFailed) {
+        // Login failed
+    } else {
+        bouncer.reset (req);
+        // Login succeeded
+    }
 });
 
 // Clear all logged addresses
 // (Usually never really used)
-bouncer.addresses = {};
+bouncer.addresses = { };
 ```
 
----
+----
+
 
 ## ratelimiter
 
@@ -245,12 +237,12 @@ ratelimiter is an abstract rate limiter for Node.js backed by redis.
 
 ### Options
 
-- `id` - the identifier to limit against (typically a user id)
-- `db` - redis connection instance
-- `max` - max requests within `duration` [2500]
-- `duration` - of limit in milliseconds [3600000]
+ - `id` - the identifier to limit against (typically a user id)
+ - `db` - redis connection instance
+ - `max` - max requests within `duration` [2500]
+ - `duration` - of limit in milliseconds [3600000]
 
----
+----
 
 ## ratelimiter usage
 
@@ -260,22 +252,22 @@ Can be used as a middleware to protect ALL routes.
 app.use((req, res, next) => {
   var id = req.user._id;
   var limit = new Limiter({ id: id, db: db });
-  limit.get(function (err, limit) {
+  limit.get(function(err, limit){
     if (err) return next(err);
 
-    res.set("X-RateLimit-Limit", limit.total);
-    res.set("X-RateLimit-Remaining", limit.remaining - 1);
-    res.set("X-RateLimit-Reset", limit.reset);
+    res.set('X-RateLimit-Limit', limit.total);
+    res.set('X-RateLimit-Remaining', limit.remaining - 1);
+    res.set('X-RateLimit-Reset', limit.reset);
 
     // all good
-    debug("remaining %s/%s %s", limit.remaining - 1, limit.total, id);
+    debug('remaining %s/%s %s', limit.remaining - 1, limit.total, id);
     if (limit.remaining) return next();
 
     // not good
-    var delta = (limit.reset * 1000 - Date.now()) | 0;
-    var after = (limit.reset - Date.now() / 1000) | 0;
-    res.set("Retry-After", after);
-    res.send(429, "Rate limit exceeded, retry in " + ms(delta, { long: true }));
+    var delta = (limit.reset * 1000) - Date.now() | 0;
+    var after = limit.reset - (Date.now() / 1000) | 0;
+    res.set('Retry-After', after);
+    res.send(429, 'Rate limit exceeded, retry in ' + ms(delta, { long: true }));
   });
 });
 ```
@@ -288,31 +280,30 @@ app.use((req, res, next) => {
   <h2>Manage sessions using cookie best practices</h2>
 </div>
 
----
+----
 
 ## Cookie Flags
 
 There are several attributes that can be set on a cookie:
+* `secure` - this attribute tells the browser to only send the cookie if the request is being sent over HTTPS.
+* `HttpOnly` - this attribute is used to help prevent attacks such as cross-site scripting, since it does not allow the cookie to be accessed via JavaScript.
 
-- `secure` - this attribute tells the browser to only send the cookie if the request is being sent over HTTPS.
-- `HttpOnly` - this attribute is used to help prevent attacks such as cross-site scripting, since it does not allow the cookie to be accessed via JavaScript.
-
----
+----
 
 ## Cookie Scope
 
-- `domain` - this attribute is used to compare against the domain of the server in which the URL is being requested. If the domain matches or if it is a sub-domain, then the path attribute will be checked next.
-- `path` - in addition to the domain, the URL path that the cookie is valid for can be specified. If the domain and path match, then the cookie will be sent in the request.
-- `expires` - this attribute is used to set persistent cookies, since the cookie does not expire until the set date is exceeded
+* `domain` - this attribute is used to compare against the domain of the server in which the URL is being requested. If the domain matches or if it is a sub-domain, then the path attribute will be checked next.
+* `path` - in addition to the domain, the URL path that the cookie is valid for can be specified. If the domain and path match, then the cookie will be sent in the request.
+* `expires` - this attribute is used to set persistent cookies, since the cookie does not expire until the set date is exceeded
 
----
+----
 
 ## cookies in Express
 
 In a newly generated express app, all options are off _by default_
 
 ```js
-app.use(cookieParser());
+app.use(cookieParser())
 ```
 
 Set some sensible defaults:
@@ -336,7 +327,7 @@ app.use(cookieParser(process.env.COOKIE_SECRET, {
 
 ## Mitigate CSRF attacks
 
----
+----
 
 ## CSRF
 
@@ -348,7 +339,7 @@ Cross-Site Request Forgery is an attack that forces a user to execute unwanted a
 
 [NodeGoat CSRF demo](https://nodegoat.herokuapp.com/tutorial/a8)
 
----
+----
 
 ## csurf
 
@@ -356,41 +347,41 @@ Node.js CSRF protection middleware.
 
 `npm install -S csurf`
 
----
+----
 
 ## csurf usage
 
 ```js
-var cookieParser = require("cookie-parser");
-var csrf = require("csurf");
-var bodyParser = require("body-parser");
-var express = require("express");
+var cookieParser = require('cookie-parser')
+var csrf = require('csurf')
+var bodyParser = require('body-parser')
+var express = require('express')
 
-var app = express();
-app.use(cookieParser());
+var app = express()
+app.use(cookieParser())
 
-var csrfProtection = csrf({ cookie: true });
-var parseForm = bodyParser.urlencoded({ extended: false });
+var csrfProtection = csrf({ cookie: true })
+var parseForm = bodyParser.urlencoded({ extended: false })
 
-app.get("/form", csrfProtection, function (req, res) {
+app.get('/form', csrfProtection, function(req, res) {
   // pass the csrfToken to the view
-  res.render("send", { csrfToken: req.csrfToken() });
-});
+  res.render('send', { csrfToken: req.csrfToken() })
+})
 
-app.post("/process", parseForm, csrfProtection, function (req, res) {
-  res.send("data is being processed");
-});
+app.post('/process', parseForm, csrfProtection, function(req, res) {
+  res.send('data is being processed')
+})
 ```
 
----
+----
 
 ## csurf usage
 
 ```html
 <form action="/process" method="POST">
-  <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+  <input type="hidden" name="_csrf" value="{{csrfToken}}">
 
-  Favorite color: <input type="text" name="favoriteColor" />
+  Favorite color: <input type="text" name="favoriteColor">
   <button type="submit">Submit</button>
 </form>
 ```
@@ -401,25 +392,24 @@ app.post("/process", parseForm, csrfProtection, function (req, res) {
 
 ## Validate Data to prevent XSS, SQL Injection and Command Injection
 
----
+----
 
 # Always filter and sanitize user input.
 
----
+----
 
 ## Input comes from _many_ places
+* Query parameters
+* URL path
+* PUT/POST parameters
+* Cookies
+* Headers
+* File uploads
+* Emails
+* Form fields
+* etc.
 
-- Query parameters
-- URL path
-- PUT/POST parameters
-- Cookies
-- Headers
-- File uploads
-- Emails
-- Form fields
-- etc.
-
----
+----
 
 ## XSS
 
@@ -439,14 +429,14 @@ The application stores user input which is not correctly filtered. It runs withi
 
 [NodeGoat Stored XSS Demo](https://nodegoat.herokuapp.com/tutorial/a3)
 
----
+----
 
 ## SQL Injection
 
 Injection of a partial or complete SQL query via user input. It can read sensitive information or be destructive as well.
 
 ```SQL
-select title, author from books where id=$id
+select title, author from books where id=$id  
 ```
 
 `$id` is coming from the user - what if the user enters 2 or 1=1? The query becomes the following:
@@ -460,17 +450,17 @@ The easiest way to defend against these kind of attacks is to use parameterized 
 If you are using PostgreSQL from Node.js then you probably using the node-postgres module. To create a parameterized query:
 
 ```js
-var q = "SELECT name FROM books WHERE id = $1";
-client.query(q, ["3"], function (err, result) {});
+var q = 'SELECT name FROM books WHERE id = $1';  
+client.query(q, ['3'], function(err, result) {});  
 ```
 
----
+----
 
 ## SQL Injection Testing
 
 http://sqlmap.org/
 
----
+----
 
 ## Command Injection
 
@@ -484,23 +474,23 @@ For example:
 
 In this example %3B becomes the semicolon, so multiple OS commands can be run.
 
----
+----
 
 ## A few take aways for data validation:
 
----
+----
 
 #### Always filter and sanitize user input.
 
----
+----
 
 ### Always filter and sanitize user input.
 
----
+----
 
 ## Always filter and sanitize user input.
 
----
+----
 
 # Always filter and sanitize user input.
 
@@ -510,7 +500,7 @@ In this example %3B becomes the semicolon, so multiple OS commands can be run.
 
 ## Ensure secure transmission by testing SSL and HSTS
 
----
+----
 
 ## Secure Transmission
 
@@ -520,20 +510,20 @@ As HTTP is a clear-text protocol it must be secured via SSL/TLS tunnel, known as
 
 You have to test:
 
-- ciphers, keys and renegotiation is properly configured
-- certificate validity
+* ciphers, keys and renegotiation is properly configured
+* certificate validity
 
----
+----
 
 ## Checking for Certificate information
 
 #### [nmap](https://nmap.org/)
 
 ```sh
-nmap --script ssl-cert,ssl-enum-ciphers -p 443,465,993,995 www.example.com
+nmap --script ssl-cert,ssl-enum-ciphers -p 443,465,993,995 www.example.com  
 ```
 
----
+----
 
 ## Testing SSL/TLS vulnerabilities with sslyze
 
@@ -543,7 +533,7 @@ nmap --script ssl-cert,ssl-enum-ciphers -p 443,465,993,995 www.example.com
 ./sslyze.py --regular example.com:443
 ```
 
----
+----
 
 ## HSTS
 
@@ -563,7 +553,7 @@ Testing for it is pretty straightforward:
 
 ## Check NPM dependencies for known vulnerabilities
 
----
+----
 
 > Any dildo can publish something to npm.
 
@@ -571,13 +561,13 @@ Testing for it is pretty straightforward:
 
 <img src="http://kylecoberly.github.io/images/ketchup-and-mustard-hero.png" style="height:200px;width:auto;border:none;background:rgba(0, 0, 0, 0)">
 
----
+----
 
 ## NPM
 
 With great power comes great responsibility - NPM has lots of packages what you can use instantly, but that comes with a cost: you should check what you are requiring to your applications. They may contain security issues that are critical.
 
----
+----
 
 ## Node Security Platform
 
@@ -588,7 +578,7 @@ npm install -g nsp
 nsp check # audit package.json
 ```
 
----
+----
 
 ## Snyk
 
@@ -603,33 +593,34 @@ snyk test # audit node_modules directory
 
 <!-- .slide: data-background-video="https://flixels.s3.amazonaws.com/flixel/etkm6cv4mvwc18qejgl3.webm" data-background-video-loop="loop" data-background-video-muted -->
 
+
 # Review
 
----
+----
 
 ## Mitigate common attacks by setting security related headers
 
----
+----
 
 ## Protect against brute force authentication attacks
 
----
+----
 
 ## Manage sessions using cookie best practices
 
----
+----
 
 ## Mitigate CSRF attacks
 
----
+----
 
 ## Validate Data to prevent XSS, SQL Injection and Command Injection
 
----
+----
 
 ## Ensure secure transmission by testing SSL and HSTS
 
----
+----
 
 ## Check NPM dependencies for known vulnerabilities
 
@@ -639,17 +630,17 @@ snyk test # audit node_modules directory
 
 # Final Thoughts
 
----
+----
 
 ## Knowing is half the battle!
 
----
+----
 
 ## Application Security is Every Developer's Responsibility
 
 This doesn't mean you have to be an expert. You can take one step forward on the path towards expertise and stop, and it will still move the needle in your organization as well as any clients you work with.
 
----
+----
 
 ## Security is a mindset, checklist/Top 10 is a place to start, but don't stop there!
 
@@ -657,25 +648,28 @@ This doesn't mean you have to be an expert. You can take one step forward on the
 
 # Resources
 
-- [reveal-md for slides](https://github.com/webpro/reveal-md)
-- [Animations](https://flixel.com/cinemagraphs/fresh/)
-- [Node.js Security Checklist](https://blog.risingstack.com/node-js-security-checklist/)
-- [OWASP - Open Web Application Security Project](https://www.owasp.org/index.php/Main_Page)
-- [Web Application Security Testing Cheat Sheet](https://www.owasp.org/index.php/Web_Application_Security_Testing_Cheat_Sheet)
-- [NodeGoat](https://github.com/OWASP/NodeGoat)
-- [Node.js Security Tips](https://blog.risingstack.com/node-js-security-tips/)
-- [A Gentle Introduction to Application Security](https://paragonie.com/blog/2015/08/gentle-introduction-application-security)
-- [Top Overlooked Security Threats To Node.js Web Applications](http://conferences.oreilly.com/fluent/fluent2014/public/schedule/detail/32664)
+* [reveal-md for slides](https://github.com/webpro/reveal-md)
+* [Animations](https://flixel.com/cinemagraphs/fresh/)
+* [Node.js Security Checklist](https://blog.risingstack.com/node-js-security-checklist/)
+* [OWASP - Open Web Application Security Project](https://www.owasp.org/index.php/Main_Page)
+* [Web Application Security Testing Cheat Sheet](https://www.owasp.org/index.php/Web_Application_Security_Testing_Cheat_Sheet)
+* [NodeGoat](https://github.com/OWASP/NodeGoat)
+* [Node.js Security Tips](https://blog.risingstack.com/node-js-security-tips/)
+* [A Gentle Introduction to Application Security](https://paragonie.com/blog/2015/08/gentle-introduction-application-security)
+* [Top Overlooked Security Threats To Node.js Web Applications](http://conferences.oreilly.com/fluent/fluent2014/public/schedule/detail/32664)
+
 
 ---
 
 <!-- .slide: data-background="https://cdn.onelogin.com/images/brands/backgrounds/login/55005df53228a5ce51e06a1c623f36c5fbe2764c.jpg" -->
 
 <div style="background: rgba(0, 0, 0, 0.5);padding: 20px;">
-<img src="" style="height:200px;width:auto;border:none;background:rgba(0, 0, 0, 0)">
-<h1>is !</h1>
 
-<a href="">post</a>
+
+<img src="" style="height:200px;width:auto;border:none;background:rgba(0, 0, 0, 0)">
+<h1>show me ur feed backs!</h1>
+
+<a href="https://www.linkedin.com/in/naderrais/">linkedin</a>
 
 </div>
 
@@ -691,6 +685,6 @@ This doesn't mean you have to be an expert. You can take one step forward on the
 <img style="display:inline;border:none;height:75px;width:auto;" src="https://raygun.com/blog/wp-content/uploads/2016/05/nodejs-logo.png">
 <img style="display:inline;border:none;height:75px;width:auto;" src="https://i.cloudup.com/zfY6lL7eFa-3000x3000.png">
 
-#### nerosiar
 
+#### nerosiar
 #### erais.nader@gmail.com
