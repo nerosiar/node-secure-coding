@@ -662,7 +662,7 @@ This doesn't mean you have to be an expert. You can take one step forward on the
 ---
 
 <!-- .slide: data-background="https://cdn.onelogin.com/images/brands/backgrounds/login/55005df53228a5ce51e06a1c623f36c5fbe2764c.jpg" -->
-
+<!-- 
 <div style="background: rgba(0, 0, 0, 0.5);padding: 20px;">
 
 
@@ -673,7 +673,7 @@ This doesn't mean you have to be an expert. You can take one step forward on the
 
 </div>
 
----
+--- -->
 
 <!-- .slide: data-background="http://i.imgur.com/m2QOD49.gif" -->
 
