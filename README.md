@@ -646,7 +646,7 @@ This doesn't mean you have to be an expert. You can take one step forward on the
 
 ---
 
-<!-- .slide: data-background-video="https://cdn.flixel.com/flixel/svds43n8suw9g2ptjde0.hd.mp4" data-background-video-loop="loop" data-background-video-muted height: 20px width: 20% -->
+<!-- .slide: data-background-video="https://cdn.flixel.com/flixel/svds43n8suw9g2ptjde0.hd.mp4" data-background-video-loop="loop" data-background-video-muted -->
 
 # Resources
 
