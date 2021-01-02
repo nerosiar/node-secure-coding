@@ -1,0 +1,15 @@
+{
+  "name": "node-security",
+  "version": "1.0.0",
+  "description": "Security with Node.js/Express: Tips and Best Practices",
+  "main": "index.js",
+  "scripts": {
+    "start": "reveal-md  --theme night --highlightTheme hybrid --title node-security --css styles.css --port 1337 --scripts custom.js presentation.md",
+    "build": "reveal-md  --theme night --highlightTheme hybrid --title node-security --css styles.css presentation.md --static public",
+    "pdf": "reveal-md  --theme night --highlightTheme hybrid --scripts custom.js --css styles.css README.md --print presentation.pdf"
+
+  },
+  "keywords": [],
+  "author": "nerosiar <erais.nader@gmail.com>",
+  "license": "MIT"
+}
