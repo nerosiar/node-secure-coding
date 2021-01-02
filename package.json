@@ -5,11 +5,15 @@
   "main": "index.js",
   "scripts": {
     "start": "reveal-md  --theme night --highlightTheme hybrid --title node-security --css styles.css --port 1337 --scripts custom.js presentation.md",
-    "build": "reveal-md  --theme night --highlightTheme hybrid --title node-security --css styles.css presentation.md --static public",
+    "build": "reveal-md  --theme night --highlightTheme hybrid --title node-security --css styles.css README.md --static public",
     "pdf": "reveal-md  --theme night --highlightTheme hybrid --scripts custom.js --css styles.css README.md --print presentation.pdf"
 
   },
   "keywords": [],
   "author": "nerosiar <erais.nader@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "phantomjs-prebuilt": "^2.1.16",
+    "reveal-md": "^3.4.2"
+  }
 }
